@@ -46,6 +46,8 @@ public class OpenAiController {
     public Flux<String> streamAsString(@RequestParam(value = "message", defaultValue = "哈喽") String message) {
         Flux<String> content = chatClient.prompt()
                 .system(s -> s.param("current_date", LocalDate.now().toString()))
+                //指定用户ID
+                //.advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId).param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
                 .advisors(a -> a.param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
                 .user(message)
                 .stream()
