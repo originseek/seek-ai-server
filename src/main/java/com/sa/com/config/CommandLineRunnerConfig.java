@@ -14,7 +14,7 @@ import org.springframework.core.io.Resource;
 public class CommandLineRunnerConfig {
     @Bean
     CommandLineRunner ingestTermOfServiceToVectorStore(EmbeddingModel embeddingModel, VectorStore vectorStore,
-                                                       @Value("classpath:rag/terms-of-service.txt") Resource termsOfServiceDocs) {
+                                                       @Value("classpath:rag/policy-service.txt") Resource termsOfServiceDocs) {
         return args -> {
             // Ingest the document into the vector store
             vectorStore.write(                                  // 3.写入
