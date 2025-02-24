@@ -1,29 +1,40 @@
 package com.sa.com.controller;
 
-import com.sa.com.log.LoggingAdvisor;
+import org.springframework.ai.chat.client.AdvisedRequest;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
 @RestController
 @CrossOrigin
-public class OpenAiController {
+@RequestMapping("/ali")
+public class AliAiController {
     private final ChatClient chatClient;
 
-    public OpenAiController(ChatClient.Builder chatClientBuilder, VectorStore vectorStore, ChatMemory chatMemory) {
+    /**
+     * 日志记录
+     */
+    private static class LoggingAdvisor implements RequestResponseAdvisor {
+        @Override
+        public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> context) {
+            System.out.println("请求参数request: " + request);
+            return request;
+        }
+    }
+
+    public AliAiController(ChatClient.Builder chatClientBuilder, VectorStore vectorStore, ChatMemory chatMemory) {
         this.chatClient = chatClientBuilder.defaultSystem("""
                         您是“智能”保险公司的客服聊天代理。请以友好、乐于助人且愉快的方式来回复。
                         您正在通过在线聊天系统也与客户互动。
