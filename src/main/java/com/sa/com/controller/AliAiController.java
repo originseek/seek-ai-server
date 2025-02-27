@@ -1,3 +1,4 @@
+/*
 package com.sa.com.controller;
 
 import com.sa.com.constants.PromptConst;
@@ -24,9 +25,7 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
 public class AliAiController {
     private final ChatClient chatClient;
 
-    /**
-     * 日志记录
-     */
+    //日志记录
     private static class LoggingAdvisor implements RequestResponseAdvisor {
         @Override
         public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> context) {
@@ -58,3 +57,4 @@ public class AliAiController {
         return content.concatWith(Flux.just("[complete]"));
     }
 }
+*/
